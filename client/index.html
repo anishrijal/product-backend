@@ -1,11 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="sportsStore">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src = "bower-components/angular/angular.main.js"></script>
+    <title>SportsStore</title>
+    <script src="bower_components/angular/angular.js"></script>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("sportsStore", ["customFilters"]);
+    </script>
+    <script src = "angularjs/controllers/sportsStore.js"></script>
+    <script src = "angularjs/filters/customFilters.js"></script>
+    <script src = "angularjs/controllers/productListControllers.js"></script>
 </head>
-<body>
-  {{Hello World}}
+<body ng-controller ="sportsStoreCtrl as sportsCtrl">
+    <div class="navbar navbar-inverse">
+        <a class="navbar-brand" href="#">SPORTS STORE</a>
+    </div>
+    <div class="panel panel-default row" ng-controller = "productListCtrl as productList" >
+        <div class="col-xs-3">
+             <a ng-click ="productList.selectedCategory()"
+                class = "btn btn-block btn-default btn-lg"> Home </a>
+             <a ng-repeat="item in sportsCtrl.data.products | orderBy: 'category' | unique: 'category'"
+                ng-click = "productList.selectedCategory(item)"
+                class = "btn btn-block btn-default btn-lg"
+                ng-class = "productList.getCategoryClass(item)" >{{item}}</a>
+         </div>
+        <div class="col-xs-8">
+            <div  class="well" ng-repeat = "item in sportsCtrl.data.products | filter: productList.categoryFilterFn | range : productList.selectedPage : productList.pageSize">
+              <h3>
+                <strong>{{item.name}}</strong>
+                <span class ="pull-right label label-primary">
+                  {{item.price | currency}}
+                </span>
+              </h3>
+              <span class = "lead">{{item.description}}</span>
+            </div>
+            <div class = "pull-right btn-group">
+              <a ng-repeat = "page in sportsCtrl.data.products | filter : productList.categoryFilterFn | pageCount: productList.pageSize"
+              ng-click = "productList.selectPage($index + 1)" class = "btn btn-default"
+              ng-class = "productList.getPageClass($index + 1)">{{$index + 1}}
+              </a>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>
