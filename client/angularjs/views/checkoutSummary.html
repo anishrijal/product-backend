@@ -1,0 +1,48 @@
+<!-- <div class ="lead">
+  This is the checkout summary view
+</div>
+<a href = "#/products" class = "btn btn-primary">Back</a> -->
+
+<h2>Your Cart</h2>
+<div>
+  <div class = "alert alert-warning" ng-show="vm.cartData.length ==0">
+    There are no products in your shopping cart.
+    <a href ="#/products" class="alert-link">Click here to return to the catalogue</a>
+
+  </div>
+  <div ng-hide ="vm.cartData.length ==0 ">
+    <table class = "table">
+      <thead>
+        <tr>
+          <th>Quantity</th>
+          <th>Item</th>
+          <th class = "text-right">Price</th>
+          <th class = "text-right">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in vm.cartData">
+          <td class = "text-center">{{item.count}}</td>
+          <td class = "text-left">{{item.name}}</td>
+          <td class = "text-right">{{item.price | currency}}</td>
+          <td class = "text-right">{{item.price * item.count | currency}}</td>
+          <td>
+            <button ng-click="vm.remove(item._id)" class ="btn btn-sm btn-warning">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+        <tr>
+          <td colspan ="3" class ="text-right">Total:</td>
+          <td class ="text-right">
+            {{vm.total() | currency}}
+          </td>
+        </tr>
+      <tfoot>
+      </tfoot>
+    </table>
+    <div class ="text-center">
+      <a class ="btn btn-primary" href="#/produts">Continue Shopping</a>
+      <a class ="btn btn-primary" href="#/placeorder">Place order</a>
+    </div>
+  </div>
+</div>

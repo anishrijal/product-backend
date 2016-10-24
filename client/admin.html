@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app ="sportsStoreAdmin">
+  <head>
+    <meta charset="utf-8">
+    <title>Administration</title>
+    <script src = "bower_components/angular/angular.js"></script>
+    <script src = "bower_components/angular-route/angular-route.js"></script>
+    <script src = "bower_components/angular-resource/angular-resource.js"></script>
+    <link href= "bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href= "bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+    <script>
+      angular.module("sportsStoreAdmin", ["ngRoute", "ngResource"])
+          .config(function($routeProvider){
+              $routeProvider.when("/login",{
+                templateUrl: "/angularjs/views/adminLogin.html",
+                controller : "authCtrl",
+                controllerAs:"vm"
+              });
+              $routeProvider.when("/main",{
+                templateUrl: "/angularjs/views/adminMain.html",
+                controller : "mainCtrl",
+                controllerAs : "vm"
+              });
+              $routeProvider.otherwise({
+                redirectTo:"/login"
+              });
+          });
+    </script>
+    <script src="angularjs/controllers/adminController.js"></script>
+    <script src="angularjs/controllers/adminProductController.js"></script>
+  </head>
+  <body>
+    <ng-view />
+  </body>
+</html>

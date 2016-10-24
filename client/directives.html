@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app ="exampleApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Directive</title>
+    <script src ="bower_components/angular/angular.js"></script>
+    <link href = "bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link href = "bower_components/bootstrap/dist/css/bootstrap-theme.css" />
+    <script>
+      angular.module("exampleApp",[])
+        .controller("defaultCtrl", function($scope){
+          $scope.todos =[
+            { action: "Get groceries", complete: false },
+            { action: "Call plumber", complete: false },
+            { action: "Buy running shoes", complete: true },
+            { action: "Buy flowers", complete: false },
+            { action: "Call family", complete: false }];
+            $scope.viewFile = function () {
+              return $scope.showList ? "angularjs/list.html" : "angularjs/table.html";
+            };
+             $scope.reportChange = function () {
+               console.log("Displayed content: " + $scope.viewFile());
+            }
+        });
+    </script>
+    <style>
+      .odd {
+        background-color: lightcoral
+      }
+      .even{
+        background-color: lavenderblush
+      }
+    </style>
+  </head>
+  <body>
+    <div class="well">
+        <div class="radio" ng-repeat="button in ['None', 'Table', 'List']">
+            <label ng-cloak>
+                <input type="radio" ng-model="data.mode"
+                     value="{{button}}" ng-checked="$first" />
+                    {{button}}
+            </label>
+        </div>
+    </div>
+    <div ng-switch on="data.mode" ng-cloak>
+        <div ng-switch-when="Table">
+            <table class="table">
+                <thead>
+                   <tr><th>#</th><th>Action</th><th>Done</th></tr>
+                </thead>
+                    <tr ng-repeat="item in todos" ng-class="$odd ? 'odd' : 'even'">
+                      <td>{{$index + 1}}</td>
+                      <td ng-repeat="prop in item">{{prop}}</td>
+                    </tr>
+            </table>
+         </div>
+         <div ng-switch-when="List">
+            <ol>
+              <li ng-repeat="item in todos">
+                {{item.action}}<span ng-if="item.complete"> (Done)</span>
+              </li>
+            </ol>
+         </div>
+         <div ng-switch-default>
+            Select another option to display a layout
+          </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<div class ="well">
+  <div class ="alert alert-info" ng-hide="vm.authenticationError">
+    Enter your username and password and click Log In to authenticate
+  </div>
+  <div class ="alert alert-danger" ng-show ="vm.authenticationError">
+    Authentication failed ({{vm.authenticationError.status}}).Try again.
+  </div>
+
+  <form name = "authForm" novalidate>
+    <div class="form-group">
+      <label>Username</label>
+      <input name = "username" class ="form-control" ng-model="vm.username" required />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input name = "password" type="password" class ="form-control" ng-model="vm.password" required />
+    </div>
+    <div class="text-center">
+      <button ng-click = "vm.authenticate(vm.username, vm.password)"
+              ng-disabled = "authForm.$invalid"
+              class="btn btn-primary">
+              Log In
+      </button>
+    </div>
+  </form>
+</div>

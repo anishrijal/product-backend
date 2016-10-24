@@ -7,12 +7,8 @@ var productSchema = new Schema({
         required: true
     },
 
-    description: {
-        type: String,
-        required: true
-    },
-    category:{
-        type: String,
+    count :{
+        type: Number,
         required: true
     },
     price: {

@@ -3,14 +3,45 @@
 <head>
     <title>SportsStore</title>
     <script src="bower_components/angular/angular.js"></script>
+    <script src ="bower_components/angular-route/angular-route.js"></script>
     <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
     <script>
-        angular.module("sportsStore", ["customFilters","cart"]);
+        angular.module("sportsStore", ["customFilters","cart", "ngRoute"])
+        .config(function ($routeProvider){
+          $routeProvider.when("/complete",{
+            templateUrl: "/angularjs/views/thankYou.html"
+            // controller: "cartSummaryCtrl",
+            // controllerAs:"vm"
+          });
+         $routeProvider.when("/placeorder",{
+            templateUrl: "/angularjs/views/placeorder.html"
+            // controller: "cartSummaryCtrl",
+            // controllerAs:"vm"
+          });
+          $routeProvider.when("/checkout",{
+            templateUrl: "/angularjs/views/checkoutSummary.html",
+            controller: "cartSummaryCtrl",
+            controllerAs:"vm"
+
+          });
+          $routeProvider.when("/product",{
+            templateUrl: "/angularjs/views/productList.html",
+            controller: "productListCtrl",
+            controllerAs: "vm"
+
+          });
+          $routeProvider.otherwise({
+            templateUrl: "/angularjs/views/productList.html",
+            controller: "productListCtrl",
+            controllerAs: "vm"
+          });
+        });
     </script>
     <script src = "angularjs/controllers/sportsStore.js"></script>
     <script src = "angularjs/filters/customFilters.js"></script>
     <script src = "angularjs/controllers/productListControllers.js"></script>
+    <script src = "angularjs/controllers/checkoutControllers.js"></script>
     <script src = "angularjs/components/cart/cart.js"></script>
 </head>
 <body ng-controller ="sportsStoreCtrl as sportsCtrl">
@@ -23,6 +54,6 @@
       <a href = "/app.html" class = "alert-link">Click here to try again</a>
     </div>
 
-    <ng-include src="'angularjs/views/productList.html'"></ng-include>
-</body>
+    <ng-view />
+  </body>
 </html>
